@@ -23,6 +23,17 @@ function App() {
       <div className="mx-5 h-50 w-50 bg-red-400 pt-5 pr-5 pb-5">
         <div className="h-full w-full bg-blue-400 px-2">dd</div>
       </div>
+
+      {/* 보더 */}
+      <div className="m-5 rounded-3xl border-x-2 border-y border-red-500">border</div>
+
+      {/* flex 컨테이너*/}
+      <div className="flex items-start justify-evenly">
+        <div className="h-10 w-10 flex-1 border">a</div>
+        <div className="h-20 w-10 flex-2 border">b</div>
+        <div className="h-30 w-10 flex-3 border">c</div>
+        <div className="h-40 w-10 flex-4 border">d</div>
+      </div>
     </div>
   );
 }
