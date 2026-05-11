@@ -1,12 +1,47 @@
 import "./App.css";
 import { Button } from "@/components/ui/button.tsx";
 import { cn } from "./lib/utils";
+import { Input } from "@/components/ui/input.tsx";
+import { Textarea } from "@/components/ui/textarea.tsx";
+import { Toaster } from "@/components/ui/sonner.tsx";
+import { toast } from "sonner";
 
 function App() {
   const isActive = true;
 
   return (
-    <div>
+    <div className="flex flex-col">
+      <Toaster position="top-center" />
+      <div className="w-100 p-5">
+        <Textarea value="hello" />
+        <Input value="hello" />
+      </div>
+
+      <div className="flex">
+        <Button
+          onClick={() => {
+            toast("toast", { position: "bottom-center" });
+          }}
+          variant="default"
+        >
+          버튼
+        </Button>
+        <Button variant="destructive">버튼</Button>
+        <Button variant="ghost">버튼</Button>
+        <Button variant="link">버튼</Button>
+        <Button variant="outline">버튼</Button>
+        <Button variant="secondary">버튼</Button>
+      </div>
+
+      <div>
+        <div className={cn("w-10, text-lg", isActive ? "text-green-500" : "text-red-500")}>
+          isActive
+        </div>
+        <div className="text-primary">Primary</div>
+        <div className="text-muted">Muted</div>
+        <div className="text-destructive">Destructive</div>
+      </div>
+
       {/* 타이포그래피 */}
       <div className="text-xs text-red-500">text-xs</div>
       <div className="text-sm text-[rgb(100,30,200)]">text-sm</div>
@@ -37,16 +72,6 @@ function App() {
         <div className="h-20 w-10 flex-2 border">b</div>
         <div className="h-30 w-10 flex-3 border">c</div>
         <div className="h-40 w-10 flex-4 border">d</div>
-      </div>
-
-      <div className="flex flex-col items-center justify-center">
-        <div className={cn("w-10, text-lg", isActive ? "text-green-500" : "text-red-500")}>
-          isActive
-        </div>
-        <Button>Click me</Button>
-        <div className="text-primary">Primary</div>
-        <div className="text-muted">Muted</div>
-        <div className="text-destructive">Destructive</div>
       </div>
     </div>
   );
