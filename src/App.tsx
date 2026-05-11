@@ -1,6 +1,10 @@
 import "./App.css";
+import { Button } from "@/components/ui/button.tsx";
+import { cn } from "./lib/utils";
 
 function App() {
+  const isActive = true;
+
   return (
     <div>
       {/* 타이포그래피 */}
@@ -33,6 +37,16 @@ function App() {
         <div className="h-20 w-10 flex-2 border">b</div>
         <div className="h-30 w-10 flex-3 border">c</div>
         <div className="h-40 w-10 flex-4 border">d</div>
+      </div>
+
+      <div className="flex flex-col items-center justify-center">
+        <div className={cn("w-10, text-lg", isActive ? "text-green-500" : "text-red-500")}>
+          isActive
+        </div>
+        <Button>Click me</Button>
+        <div className="text-primary">Primary</div>
+        <div className="text-muted">Muted</div>
+        <div className="text-destructive">Destructive</div>
       </div>
     </div>
   );
