@@ -8,13 +8,29 @@ export function useUpdateTodoMutation() {
 
   return useMutation({
     mutationFn: updateTodo,
-    onMutate: updatedTodo => {
+    onMutate: async updatedTodo => {
+      await queryClient.cancelQueries({
+        queryKey: QUERY_KEYS.todo.list,
+      });
+
+      const prevTodos = queryClient.getQueryData<Todo[]>(QUERY_KEYS.todo.list);
+
       queryClient.setQueryData<Todo[]>(QUERY_KEYS.todo.list, prevTodos => {
         if (!prevTodos) return [];
         return prevTodos.map(prevTodo =>
           prevTodo.id === updatedTodo.id ? { ...prevTodo, ...updatedTodo } : prevTodo
         );
       });
+
+      return { prevTodos };
+    },
+    onError: (error, variable, context) => {
+      if (context && context.prevTodos) {
+        queryClient.setQueryData<Todo[]>(QUERY_KEYS.todo.list, context.prevTodos);
+      }
+    },
+    onSettled: async () => {
+      await queryClient.invalidateQueries({ queryKey: QUERY_KEYS.todo.list });
     },
   });
 }
