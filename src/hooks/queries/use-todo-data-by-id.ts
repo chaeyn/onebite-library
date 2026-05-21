@@ -2,19 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchTodoById } from "@/api/fetch-todo-by-id.ts";
 import { QUERY_KEYS } from "@/lib/constants.ts";
 
-export function useTodoDataById(id: string) {
+export function useTodoDataById(id: string, type: "LIST" | "DETAIL") {
   return useQuery({
     queryFn: () => fetchTodoById(id),
     queryKey: QUERY_KEYS.todo.detail(id),
-
-    retry: 1,
-    staleTime: 300000,
-    gcTime: 5000, // 가비지 컬렉터 시간 (inactive -> GC excute time)
-
-    // refetchInterval: 1000, -> 1초마다 refetch
-    // refetchOnMount: false,
-    // refetchOnWindowFocus: false,
-    // refetchOnReconnect: false,
-    // refetchInterval: false,
+    enabled: type === "DETAIL",
   });
 }
